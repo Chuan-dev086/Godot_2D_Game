@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://2oqfqxx5b61g"]
+
+[ext_resource type="Script" uid="uid://cisb3653mnrfo" path="res://Enemy.cs" id="1_7k104"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(40, 40)
+
+[node name="Enemy" type="Area2D" unique_id=1549132596]
+script = ExtResource("1_7k104")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=995071235]
+shape = SubResource("RectangleShape2D_xrivr")

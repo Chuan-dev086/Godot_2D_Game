@@ -12,7 +12,7 @@ public partial class Bullet : Area2D
     public override void _Ready()
     {
         AreaEntered += OnAreaEntered;
-        BodyEntered += onBodyEntered;
+        BodyEntered += OnBodyEntered;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -29,14 +29,21 @@ public partial class Bullet : Area2D
 
     private void OnAreaEntered(Area2D area)
     {
-        if (area.GetParent().Name == "Player")
+        if (area.GetParent().Name == "Player" || area.Name == "Player")
             return;
+
+        if (area is Enemy enemy)
+        {
+            enemy.TakeDamage();
+            QueueFree();
+            return;
+        }
 
         GD.Print("The bullet hit something");
         QueueFree();
     }
 
-    private void onBodyEntered(Node2D body)
+    private void OnBodyEntered(Node2D body)
     {
         if (body.Name == "Player")
             return;

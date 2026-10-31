@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ckudr8chj1kgo"]
 
 [ext_resource type="Script" uid="uid://cvrgmrm5qcoag" path="res://Player.cs" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="2_onrkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(50, 50)
@@ -34,3 +35,34 @@ position = Vector2(-300, 300)
 shape = SubResource("RectangleShape2D_b1lj4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705876533]
+
+[node name="Enemy" parent="." unique_id=1549132596 instance=ExtResource("2_onrkg")]
+position = Vector2(-392, -177)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=226382865]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=2057678204]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 132.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 32
+text = "Score:0"
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer" unique_id=610645156]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -44.0
+offset_right = 201.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER!!"
+horizontal_alignment = 1
+vertical_alignment = 1
