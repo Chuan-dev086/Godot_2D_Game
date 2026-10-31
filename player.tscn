@@ -2,5 +2,35 @@
 
 [ext_resource type="Script" uid="uid://cvrgmrm5qcoag" path="res://Player.cs" id="1_4flbx"]
 
-[node name="Player" type="Node2D" unique_id=1762543114]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1lj4"]
+size = Vector2(100, 500)
+
+[node name="Node2D" type="Node2D" unique_id=1828162521]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=424117183]
+position = Vector2(300, 300)
 script = ExtResource("1_4flbx")
+
+[node name="Area2D" type="Area2D" parent="Player" unique_id=1331209317]
+position = Vector2(0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D" unique_id=605662479]
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1755496293]
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=900800855]
+position = Vector2(-300, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=811322184]
+shape = SubResource("RectangleShape2D_b1lj4")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=705876533]
