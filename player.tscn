@@ -57,6 +57,14 @@ text = "GAME OVER!!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=439555138]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 132.0
+offset_bottom = 125.0
+theme_override_font_sizes/font_size = 32
+text = "HP:3 "
+
 [node name="Timer" type="Timer" parent="." unique_id=976947352]
 process_mode = 3
 wait_time = 1.5

@@ -29,18 +29,14 @@ public partial class Enemy : CharacterBody2D // 变成实体
 
         if (distanceX < 55f && distanceY < 55f)
         {
-            _hasTriggeredGameOver = true; // 上锁，防止刷屏
-            GD.Print("Eliminated by monster! GAME OVER!!!");
-
-            // 【核心修复】用 FindChild 寻找 Label，不管它被你塞在哪个容器里都能找到！
-            var gameOverLabel = GetTree().Root.FindChild("GameOverLabel", true, false) as Label;
-            if (gameOverLabel != null)
+            // 如果是玩家（Player.cs）类型，就调用它的受伤方法
+            if (_player is Player playerScript)
             {
-                gameOverLabel.Visible = true;
+                playerScript.TakeDamage();
             }
 
-            _player.QueueFree();
-            GetTree().Paused = true;
+            // 怪物撞到人后自己也消失（相当于自爆）
+            QueueFree();
         }
     }
 
