@@ -32,13 +32,6 @@ public partial class Bullet : Area2D
         if (area.GetParent().Name == "Player" || area.Name == "Player")
             return;
 
-        if (area is Enemy enemy)
-        {
-            enemy.TakeDamage();
-            QueueFree();
-            return;
-        }
-
         GD.Print("The bullet hit something");
         QueueFree();
     }
@@ -47,6 +40,14 @@ public partial class Bullet : Area2D
     {
         if (body.Name == "Player")
             return;
+
+        // 如果是怪物
+        if (body is Enemy enemy)
+        {
+            enemy.TakeDamage();
+            QueueFree();
+            return;
+        }
 
         GD.Print("The bullet hit a solid wall.");
         QueueFree();

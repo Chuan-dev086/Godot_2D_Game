@@ -45,16 +45,11 @@ public partial class Player : CharacterBody2D
         Velocity = velocity * _speed;
         MoveAndSlide();
 
-        // player can't go out from screen border
-        float minX = -576 + 25;
-        float maxX = 576 - 25;
-        float minY = -324 + 25;
-        float maxY = 324 - 25;
-
-        Position = new Vector2(
-            Mathf.Clamp(Position.X, minX, maxX),
-            Mathf.Clamp(Position.Y, minY, maxY)
-        );
+        var cam = GetParent().GetNode<Camera2D>("Camera2D");
+        if (cam != null)
+        {
+            cam.GlobalPosition = GlobalPosition;
+        }
     }
 
     // Handle mouse click input

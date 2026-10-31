@@ -12,39 +12,43 @@ public partial class Spawner : Timer
 
     private void SpawnEnemy()
     {
+        if (GetTree().Paused)
+            return;
         if (_enemyScene == null)
+            return;
+
+        // 1. 找到玩家当前的位置
+        var player = GetTree().Root.GetNode<Node2D>("Node2D/Player");
+        if (player == null)
             return;
 
         var enemy = _enemyScene.Instantiate<Enemy>();
 
+        // 2. 随机生成一个角度
         RandomNumberGenerator rng = new RandomNumberGenerator();
         rng.Randomize();
-        int side = rng.RandiRange(0, 3);
+        float angle = rng.RandfRange(0, Mathf.Pi * 2);
 
-        float minX = -600,
-            maxX = 600,
-            minY = -350,
-            maxY = 350;
-        Vector2 spawnPos = Vector2.Zero;
+        // 3. 距离玩家 800 像素的圆圈外生成（保证在屏幕外面一点点）
+        float spawnRadius = 800f;
+        Vector2 spawnOffset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
 
-        switch (side)
-        {
-            case 0:
-                spawnPos = new Vector2(rng.RandfRange(minX, maxX), minY);
-                break;
-            case 1:
-                spawnPos = new Vector2(rng.RandfRange(minX, maxX), maxY);
-                break;
-            case 2:
-                spawnPos = new Vector2(minX, rng.RandfRange(minY, maxY));
-                break;
-            case 3:
-                spawnPos = new Vector2(maxX, rng.RandfRange(minY, maxY));
-                break;
-        }
-
-        enemy.GlobalPosition = spawnPos;
+        // 4. 怪物位置 = 玩家位置 + 随机偏移
+        enemy.GlobalPosition = player.GlobalPosition + spawnOffset;
 
         GetParent().AddChild(enemy);
+    }
+
+    // hanlde keyboard input
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.R)
+        {
+            if (GetTree().Paused)
+            {
+                GetTree().Paused = false;
+                GetTree().ReloadCurrentScene();
+            }
+        }
     }
 }
