@@ -12,6 +12,8 @@ public partial class Enemy : CharacterBody2D
 
     public override void _Ready()
     {
+        AddToGroup("enemies");
+
         _currentHealth = _maxHealth;
 
         _player = GetTree().Root.GetNode<Node2D>("Node2D/Player");

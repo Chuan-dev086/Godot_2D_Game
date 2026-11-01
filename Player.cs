@@ -5,6 +5,9 @@ public partial class Player : CharacterBody2D
     private float _speed = 300f;
     private PackedScene _bulletScene = GD.Load<PackedScene>("res://bullet.tscn");
 
+    // Aim Mode
+    private bool _isAutoAim = false;
+
     // Health
     private int _maxHealth = 3;
     private int _currentHealth;
@@ -15,6 +18,8 @@ public partial class Player : CharacterBody2D
         _currentHealth = _maxHealth;
         UpdateHealthUI();
         QueueRedraw();
+
+        GD.Print("Manual Aim Enabled");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -104,8 +109,23 @@ public partial class Player : CharacterBody2D
             hpLabel.Text = $"HP: {_currentHealth}";
     }
 
+    // Handle input
     public override void _Input(InputEvent @event)
     {
+        // Toggle Aim Mode using Tab
+        if (
+            @event is InputEventKey keyEvent
+            && keyEvent.Pressed
+            && !keyEvent.Echo
+            && keyEvent.Keycode == Key.Tab
+        )
+        {
+            _isAutoAim = !_isAutoAim;
+
+            GD.Print(_isAutoAim ? "Auto Aim Enabled" : "Manual Aim Enabled");
+        }
+
+        // Left Mouse Button to shoot in both modes
         if (
             @event is InputEventMouseButton mouseEvent
             && mouseEvent.Pressed
@@ -116,15 +136,58 @@ public partial class Player : CharacterBody2D
         }
     }
 
+    // Find the nearest enemy
+    private Enemy FindNearestEnemy()
+    {
+        Enemy nearestEnemy = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach (Node node in GetTree().GetNodesInGroup("enemies"))
+        {
+            if (node is not Enemy enemy || !GodotObject.IsInstanceValid(enemy))
+                continue;
+
+            float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestEnemy = enemy;
+            }
+        }
+
+        return nearestEnemy;
+    }
+
+    // Handle shooting
     private void Shoot()
     {
         if (_bulletScene == null)
             return;
 
-        var bullet = _bulletScene.Instantiate<Bullet>();
+        Vector2 direction = Vector2.Zero;
 
-        Vector2 mousePos = GetGlobalMousePosition();
-        Vector2 direction = (mousePos - GlobalPosition).Normalized();
+        if (_isAutoAim)
+        {
+            Enemy target = FindNearestEnemy();
+
+            // Stop shooting if no enemy exists
+            if (target == null)
+                return;
+
+            direction = (target.GlobalPosition - GlobalPosition).Normalized();
+        }
+        else
+        {
+            Vector2 mousePos = GetGlobalMousePosition();
+            direction = (mousePos - GlobalPosition).Normalized();
+        }
+
+        // Prevent shooting with an invalid direction
+        if (direction == Vector2.Zero)
+            return;
+
+        var bullet = _bulletScene.Instantiate<Bullet>();
 
         bullet.GlobalPosition = GlobalPosition + direction * 35;
         bullet.Direction = direction;
