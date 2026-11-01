@@ -52,6 +52,7 @@ public partial class Enemy : CharacterBody2D
             return;
 
         _currentHealth -= damage;
+        QueueRedraw();
 
         GD.Print($"Enemy took {damage} damage! HP: {_currentHealth}/{_maxHealth}");
 
@@ -79,6 +80,16 @@ public partial class Enemy : CharacterBody2D
 
     public override void _Draw()
     {
+        // Draw Enemy
         DrawRect(new Rect2(-20, -20, 40, 40), Colors.Red);
+
+        // Calculate Health Percentage
+        float healthPercentage = (float)_currentHealth / _maxHealth;
+
+        // Health Bar Background
+        DrawRect(new Rect2(-20, -32, 40, 5), Colors.DarkGray);
+
+        // Health Bar Foreground
+        DrawRect(new Rect2(-20, -32, 40 * healthPercentage, 5), Colors.Green);
     }
 }
