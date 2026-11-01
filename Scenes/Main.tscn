@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cvrgmrm5qcoag" path="res://Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://qfbit7glc5i5" path="res://Spawner.cs" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://cutumcrgbrk5s" path="res://GameManager.cs" id="4_rgh2o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(50, 50)
@@ -70,3 +71,7 @@ process_mode = 3
 wait_time = 1.5
 autostart = true
 script = ExtResource("3_i3pqv")
+
+[node name="GameManager" type="Node" parent="." unique_id=420988522]
+process_mode = 3
+script = ExtResource("4_rgh2o")

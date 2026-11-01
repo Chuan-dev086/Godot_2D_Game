@@ -38,17 +38,4 @@ public partial class Spawner : Timer
 
         GetParent().AddChild(enemy);
     }
-
-    // hanlde keyboard input
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.R)
-        {
-            if (GetTree().Paused)
-            {
-                GetTree().Paused = false;
-                GetTree().ReloadCurrentScene();
-            }
-        }
-    }
 }
