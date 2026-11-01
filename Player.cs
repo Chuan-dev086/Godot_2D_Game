@@ -15,6 +15,19 @@ public partial class Player : CharacterBody2D
 
     public override void _Ready()
     {
+        GD.Print("Player _Ready() executed!");
+
+        Node weaponManager = GetNodeOrNull("WeaponManager");
+
+        if (weaponManager != null)
+        {
+            GD.Print("WeaponManager node found!");
+        }
+        else
+        {
+            GD.Print("WeaponManager node NOT found!");
+        }
+
         _currentHealth = _maxHealth;
         UpdateHealthUI();
         QueueRedraw();

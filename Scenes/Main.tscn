@@ -1,34 +1,17 @@
 [gd_scene format=3 uid="uid://ckudr8chj1kgo"]
 
-[ext_resource type="Script" uid="uid://cvrgmrm5qcoag" path="res://Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://qfbit7glc5i5" path="res://Spawner.cs" id="3_i3pqv"]
 [ext_resource type="Script" uid="uid://cutumcrgbrk5s" path="res://GameManager.cs" id="4_rgh2o"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(50, 50)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(50, 50)
+[ext_resource type="PackedScene" uid="uid://b088lp3apqk4d" path="res://Scenes/Player.tscn" id="5_pbw6q"]
 
 [node name="Node2D" type="Node2D" unique_id=1828162521]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705876533]
 zoom = Vector2(0.5, 0.5)
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=424117183]
-position = Vector2(300, 300)
-script = ExtResource("1_4flbx")
-
-[node name="Area2D" type="Area2D" parent="Player" unique_id=1331209317]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D" unique_id=605662479]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_xrivr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1755496293]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_13qdw")
+[node name="Player" parent="." unique_id=2109169498 instance=ExtResource("5_pbw6q")]
+position = Vector2(304, 300)
 
 [node name="Enemy" parent="." unique_id=1549132596 instance=ExtResource("2_onrkg")]
 position = Vector2(-351, -414)
@@ -47,6 +30,10 @@ text = "Score:0"
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -75,3 +62,5 @@ script = ExtResource("3_i3pqv")
 [node name="GameManager" type="Node" parent="." unique_id=420988522]
 process_mode = 3
 script = ExtResource("4_rgh2o")
+
+[editable path="Player"]
