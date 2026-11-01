@@ -41,10 +41,9 @@ public partial class Bullet : Area2D
         if (body.Name == "Player")
             return;
 
-        // 如果是怪物
         if (body is Enemy enemy)
         {
-            enemy.TakeDamage();
+            enemy.TakeDamage(1);
             QueueFree();
             return;
         }
