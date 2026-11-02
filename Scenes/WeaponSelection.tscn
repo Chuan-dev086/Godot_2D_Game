@@ -1,0 +1,284 @@
+[gd_scene format=3 uid="uid://cq1meb45xs84c"]
+
+[ext_resource type="Script" uid="uid://csti478i6icaa" path="res://WeaponSelection.cs" id="1_y4c64"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6gsi"]
+bg_color = Color(0.23137255, 0.50980395, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7ysa"]
+bg_color = Color(0.11372549, 0.30588236, 0.84705883, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4c64"]
+bg_color = Color(0.14509805, 0.3882353, 0.92156863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tas2y"]
+bg_color = Color(0.39215687, 0.45490196, 0.54509807, 1)
+
+[node name="WeaponSelection" type="Control" unique_id=1381380852]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y4c64")
+
+[node name="Background" type="ColorRect" parent="." unique_id=242403533]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0.09803922, 0.13725491, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="Background" unique_id=807783158]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Background/MainContainer" unique_id=1122517902]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "CHOOSE YOUR WEAPON "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Background/MainContainer" unique_id=279222763]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "SELECT YOUR STARTING WEAPON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponCards" type="GridContainer" parent="Background/MainContainer" unique_id=1270687397]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="PistolCard" type="PanelContainer" parent="Background/MainContainer/WeaponCards" unique_id=1831310253]
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+
+[node name="CardContent" type="VBoxContainer" parent="Background/MainContainer/WeaponCards/PistolCard" unique_id=2034654694]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="Background/MainContainer/WeaponCards/PistolCard/CardContent" unique_id=1025721792]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "PISTOL"
+horizontal_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="Background/MainContainer/WeaponCards/PistolCard/CardContent" unique_id=1952097185]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "DAMAGE: 1"
+horizontal_alignment = 1
+
+[node name="FireRateLabel" type="Label" parent="Background/MainContainer/WeaponCards/PistolCard/CardContent" unique_id=1867921661]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Fire Rate: 0.4s "
+horizontal_alignment = 1
+
+[node name="MagazineLabel" type="Label" parent="Background/MainContainer/WeaponCards/PistolCard/CardContent" unique_id=1935199040]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Magazine: 12"
+horizontal_alignment = 1
+
+[node name="ReserveAmmoLabel" type="Label" parent="Background/MainContainer/WeaponCards/PistolCard/CardContent" unique_id=357810833]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reserve Ammo: 60"
+horizontal_alignment = 1
+
+[node name="ReloadTimeLabel" type="Label" parent="Background/MainContainer/WeaponCards/PistolCard/CardContent" unique_id=767929737]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reload Time: 1.2s"
+horizontal_alignment = 1
+
+[node name="SMGCard" type="PanelContainer" parent="Background/MainContainer/WeaponCards" unique_id=1324714828]
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+
+[node name="CardContent" type="VBoxContainer" parent="Background/MainContainer/WeaponCards/SMGCard" unique_id=240737987]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="Background/MainContainer/WeaponCards/SMGCard/CardContent" unique_id=2071195590]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "SMG"
+horizontal_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="Background/MainContainer/WeaponCards/SMGCard/CardContent" unique_id=864825212]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "DAMAGE: 1"
+horizontal_alignment = 1
+
+[node name="FireRateLabel" type="Label" parent="Background/MainContainer/WeaponCards/SMGCard/CardContent" unique_id=906380590]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Fire Rate: 0.1s "
+horizontal_alignment = 1
+
+[node name="MagazineLabel" type="Label" parent="Background/MainContainer/WeaponCards/SMGCard/CardContent" unique_id=1116401042]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Magazine: 30"
+horizontal_alignment = 1
+
+[node name="ReserveAmmoLabel" type="Label" parent="Background/MainContainer/WeaponCards/SMGCard/CardContent" unique_id=1710166471]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reserve Ammo: 120"
+horizontal_alignment = 1
+
+[node name="ReloadTimeLabel" type="Label" parent="Background/MainContainer/WeaponCards/SMGCard/CardContent" unique_id=37005355]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reload Time: 1.8s"
+horizontal_alignment = 1
+
+[node name="ShotgunCard" type="PanelContainer" parent="Background/MainContainer/WeaponCards" unique_id=191477861]
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+
+[node name="CardContent" type="VBoxContainer" parent="Background/MainContainer/WeaponCards/ShotgunCard" unique_id=31377793]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="Background/MainContainer/WeaponCards/ShotgunCard/CardContent" unique_id=1712152779]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "SHOTGUN"
+horizontal_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="Background/MainContainer/WeaponCards/ShotgunCard/CardContent" unique_id=1921018414]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "DAMAGE: 2"
+horizontal_alignment = 1
+
+[node name="FireRateLabel" type="Label" parent="Background/MainContainer/WeaponCards/ShotgunCard/CardContent" unique_id=1108208081]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Fire Rate: 0.8s "
+horizontal_alignment = 1
+
+[node name="MagazineLabel" type="Label" parent="Background/MainContainer/WeaponCards/ShotgunCard/CardContent" unique_id=1178441583]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Magazine: 15"
+horizontal_alignment = 1
+
+[node name="ReserveAmmoLabel" type="Label" parent="Background/MainContainer/WeaponCards/ShotgunCard/CardContent" unique_id=1633199297]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reserve Ammo: 75"
+horizontal_alignment = 1
+
+[node name="ReloadTimeLabel" type="Label" parent="Background/MainContainer/WeaponCards/ShotgunCard/CardContent" unique_id=1393449032]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reload Time: 1.0s/Shell"
+horizontal_alignment = 1
+
+[node name="SniperCard" type="PanelContainer" parent="Background/MainContainer/WeaponCards" unique_id=1162757986]
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+
+[node name="CardContent" type="VBoxContainer" parent="Background/MainContainer/WeaponCards/SniperCard" unique_id=2064588536]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=1280024899]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "SNIPER"
+horizontal_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=1371321701]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "DAMAGE: 10"
+horizontal_alignment = 1
+
+[node name="FireRateLabel" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=1229893428]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Fire Rate: 1.5s "
+horizontal_alignment = 1
+
+[node name="MagazineLabel" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=1037625550]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Magazine: 5"
+horizontal_alignment = 1
+
+[node name="ReserveAmmoLabel" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=925497879]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reserve Ammo: 15"
+horizontal_alignment = 1
+
+[node name="ReloadTimeLabel" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=798657795]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.627451, 0.65882355, 0.72156864, 1)
+theme_override_font_sizes/font_size = 16
+text = "Reload Time: 4.0s"
+horizontal_alignment = 1
+
+[node name="SpecialLabel" type="Label" parent="Background/MainContainer/WeaponCards/SniperCard/CardContent" unique_id=711129874]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.7764706, 0.45490196, 1)
+theme_override_font_sizes/font_size = 16
+text = "Special: Piercing"
+horizontal_alignment = 1
+
+[node name="SelectedWeaponLabel" type="Label" parent="Background/MainContainer" unique_id=1719220821]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Selected Weapon: None"
+horizontal_alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="Background/MainContainer" unique_id=628991920]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_b6gsi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s7ysa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y4c64")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tas2y")
+text = "START GAME"
