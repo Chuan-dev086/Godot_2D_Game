@@ -64,21 +64,30 @@ public partial class Enemy : CharacterBody2D
 
         GD.Print($"Enemy took {damage} damage! HP: {_currentHealth}/{_maxHealth}");
 
-        // --- 新增：生成伤害飘字 ---
+        // --- 1. 生成伤害飘字 ---
         if (DamageNumberScene != null)
         {
-            // 1. 实例化飘字场景
             var damageNum = DamageNumberScene.Instantiate<DamageNumber>();
-
-            // 2. 把飘字加到当前场景树中，而不是敌人节点下
-            // 这样即使敌人马上要死了（QueueFree），飘字也能播完动画
             GetTree().CurrentScene.AddChild(damageNum);
-
-            // 3. 传入伤害值和位置（向上偏移 30 像素，避免遮挡敌人血条）
             damageNum.ShowDamage(damage, GlobalPosition + new Vector2(0, -30));
         }
-        // --------------------------
 
+        // --- 2. 命中顿帧 (Hit Stop) ---
+        Engine.TimeScale = 0.05f;
+        GetTree().CreateTimer(0.05f, true, false, true).Timeout += () =>
+        {
+            Engine.TimeScale = 1.0f;
+        };
+
+        // --- 3. 屏幕震动 (Screen Shake) ---
+        // 注意这里的路径，必须根据你实际的场景树来写！
+        var camera = GetTree().Root.GetNodeOrNull<CameraShake>("Node2D/Player/Camera2D");
+        if (camera != null)
+        {
+            camera.Shake(15f, 0.3f); // 强度15，时长0.3秒
+        }
+
+        // --- 4. 死亡判定 ---
         if (_currentHealth <= 0)
         {
             Die();
