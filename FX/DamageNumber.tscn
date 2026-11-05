@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3l3o7dke6snf"]
+
+[ext_resource type="Script" uid="uid://bcs6hqs41skio" path="res://FX/DamageNumber.cs" id="1_vhdwi"]
+
+[node name="DamageNumber" type="Label" unique_id=404374208]
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "10 "
+script = ExtResource("1_vhdwi")

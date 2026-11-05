@@ -10,6 +10,12 @@ public partial class Enemy : CharacterBody2D
 
     private Node2D _player;
 
+    // --- 新增：用来引用飘字场景 ---
+    [Export]
+    public PackedScene DamageNumberScene;
+
+    // ----------------------------
+
     public override void _Ready()
     {
         AddToGroup("enemies");
@@ -57,6 +63,21 @@ public partial class Enemy : CharacterBody2D
         QueueRedraw();
 
         GD.Print($"Enemy took {damage} damage! HP: {_currentHealth}/{_maxHealth}");
+
+        // --- 新增：生成伤害飘字 ---
+        if (DamageNumberScene != null)
+        {
+            // 1. 实例化飘字场景
+            var damageNum = DamageNumberScene.Instantiate<DamageNumber>();
+
+            // 2. 把飘字加到当前场景树中，而不是敌人节点下
+            // 这样即使敌人马上要死了（QueueFree），飘字也能播完动画
+            GetTree().CurrentScene.AddChild(damageNum);
+
+            // 3. 传入伤害值和位置（向上偏移 30 像素，避免遮挡敌人血条）
+            damageNum.ShowDamage(damage, GlobalPosition + new Vector2(0, -30));
+        }
+        // --------------------------
 
         if (_currentHealth <= 0)
         {
