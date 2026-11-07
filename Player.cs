@@ -319,6 +319,7 @@ public partial class Player : CharacterBody2D
             return;
 
         GD.Print($"Ammo: {weapon.CurrentAmmo}/{weapon.MagazineSize}");
+        _weaponManager.NotifyAmmoChanged();
 
         // Create bullet
         var bullet = _bulletScene.Instantiate<Bullet>();
@@ -408,6 +409,7 @@ public partial class Player : CharacterBody2D
             GD.Print(
                 $"Reload complete! Ammo: {weapon.CurrentAmmo}/{weapon.MagazineSize}, Reserve: {weapon.ReserveAmmo}"
             );
+            _weaponManager.NotifyAmmoChanged();
         };
     }
 
@@ -447,12 +449,14 @@ public partial class Player : CharacterBody2D
             if (!weapon.ReloadOneAmmo())
             {
                 _isReloading = false;
+                _weaponManager?.NotifyAmmoChanged();
                 return;
             }
 
             GD.Print(
                 $"Shotgun Reload: {weapon.CurrentAmmo}/{weapon.MagazineSize}, Reserve: {weapon.ReserveAmmo}"
             );
+            _weaponManager?.NotifyAmmoChanged();
 
             // Continue loading the next shell
             ReloadShotgunShell(currentVersion);

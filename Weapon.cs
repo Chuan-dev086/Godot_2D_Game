@@ -1,53 +1,47 @@
-public class Weapon
+using Godot;
+
+[GlobalClass]
+public partial class Weapon : Resource
 {
-    public string Name { get; set; }
+    [Export]
+    public string Name { get; set; } = "";
 
     // Combat Properties
-    public int Damage { get; set; }
-    public float FireRate { get; set; }
-    public float BulletSpeed { get; set; }
-    public int BulletCount { get; set; }
+    [Export]
+    public int Damage { get; set; } = 1;
+
+    [Export]
+    public float FireRate { get; set; } = 0.2f;
+
+    [Export]
+    public float BulletSpeed { get; set; } = 800f;
+
+    [Export]
+    public int BulletCount { get; set; } = 1;
 
     // Ammo Properties
-    public int MagazineSize { get; set; }
-    public int CurrentAmmo { get; set; }
-    public int ReserveAmmo { get; set; }
-    public int AmmoPerShot { get; set; }
+    [Export]
+    public int MagazineSize { get; set; } = 10;
+
+    [Export]
+    public int CurrentAmmo { get; set; } = 10;
+
+    [Export]
+    public int ReserveAmmo { get; set; } = 50;
+
+    [Export]
+    public int AmmoPerShot { get; set; } = 1;
 
     // Reload Properties
-    public float ReloadTime { get; set; }
+    [Export]
+    public float ReloadTime { get; set; } = 1.0f;
 
     // Special Properties
-    public bool CanPierce { get; set; }
+    [Export]
+    public bool CanPierce { get; set; } = false;
 
-    public Weapon(
-        string name,
-        int damage,
-        float fireRate,
-        float bulletSpeed,
-        int bulletCount,
-        int magazineSize,
-        int reserveAmmo,
-        int ammoPerShot,
-        float reloadTime,
-        bool canPierce
-    )
+    public Weapon()
     {
-        Name = name;
-
-        Damage = damage;
-        FireRate = fireRate;
-        BulletSpeed = bulletSpeed;
-        BulletCount = bulletCount;
-
-        MagazineSize = magazineSize;
-        CurrentAmmo = magazineSize;
-        ReserveAmmo = reserveAmmo;
-        AmmoPerShot = ammoPerShot;
-
-        ReloadTime = reloadTime;
-
-        CanPierce = canPierce;
     }
 
     // Check and consume ammo when shooting
@@ -57,7 +51,6 @@ public class Weapon
             return false;
 
         CurrentAmmo -= AmmoPerShot;
-
         return true;
     }
 

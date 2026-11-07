@@ -17,6 +17,8 @@ public partial class GameManager : Node
         }
     }
 
+    private WeaponManager _subscribedWeaponManager;
+
     public override void _Ready()
     {
         GD.Print("GameManager is ready!");
@@ -27,6 +29,23 @@ public partial class GameManager : Node
         {
             ScoreManager.Instance.ScoreChanged += OnScoreChanged;
             OnScoreChanged(ScoreManager.Instance.CurrentScore);
+        }
+
+        SetupWeaponManagerConnection();
+    }
+
+    private void SetupWeaponManagerConnection()
+    {
+        var player = GetTree().GetFirstNodeInGroup("player");
+        var weaponManager = player?.GetNodeOrNull<WeaponManager>("WeaponManager");
+        if (weaponManager != null)
+        {
+            _subscribedWeaponManager = weaponManager;
+            weaponManager.AmmoUpdated += OnAmmoUpdated;
+            if (weaponManager.CurrentWeapon != null)
+            {
+                OnAmmoUpdated(weaponManager.CurrentWeapon.CurrentAmmo, weaponManager.CurrentWeapon.ReserveAmmo);
+            }
         }
     }
 
@@ -40,6 +59,28 @@ public partial class GameManager : Node
         if (ScoreManager.Instance != null)
         {
             ScoreManager.Instance.ScoreChanged -= OnScoreChanged;
+        }
+
+        if (_subscribedWeaponManager != null && GodotObject.IsInstanceValid(_subscribedWeaponManager))
+        {
+            _subscribedWeaponManager.AmmoUpdated -= OnAmmoUpdated;
+        }
+    }
+
+    private void OnAmmoUpdated(int currentAmmo, int reserveAmmo)
+    {
+        var ammoLabel = GetTree().CurrentScene?.FindChild("AmmoLabel", true, false) as Label;
+        if (ammoLabel != null)
+        {
+            ammoLabel.Text = $"Ammo: {currentAmmo}/{reserveAmmo}";
+            if (currentAmmo == 0)
+            {
+                ammoLabel.Modulate = Colors.Red;
+            }
+            else
+            {
+                ammoLabel.Modulate = Colors.White;
+            }
         }
     }
 
