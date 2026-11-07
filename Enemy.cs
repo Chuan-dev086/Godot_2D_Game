@@ -22,17 +22,19 @@ public partial class Enemy : CharacterBody2D
 
         _currentHealth = _maxHealth;
 
-        _player = GetTree().Root.GetNode<Node2D>("Node2D/Player");
+        _player = GetTree().GetFirstNodeInGroup("player") as Node2D;
 
         GD.Print($"Enemy spawned! HP: {_currentHealth}");
     }
 
-    private bool _hasTriggeredGameOver = false;
-
     public override void _PhysicsProcess(double delta)
     {
-        if (_hasTriggeredGameOver || !IsInstanceValid(_player))
-            return;
+        if (!IsInstanceValid(_player))
+        {
+            _player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+            if (!IsInstanceValid(_player))
+                return;
+        }
 
         Vector2 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
 
@@ -80,8 +82,7 @@ public partial class Enemy : CharacterBody2D
         };
 
         // --- 3. 屏幕震动 (Screen Shake) ---
-        // 注意这里的路径，必须根据你实际的场景树来写！
-        var camera = GetTree().Root.GetNodeOrNull<CameraShake>("Node2D/Player/Camera2D");
+        var camera = GetTree().GetFirstNodeInGroup("camera") as CameraShake;
         if (camera != null)
         {
             camera.Shake(15f, 0.3f); // 强度15，时长0.3秒
@@ -99,13 +100,15 @@ public partial class Enemy : CharacterBody2D
     {
         GD.Print("Enemy Defeated !!");
 
-        var scoreLabel = GetTree().Root.GetNode<Label>("Node2D/CanvasLayer/ScoreLabel");
-
-        string currentText = scoreLabel.Text;
-        int currentScore = int.Parse(currentText.Split(':')[1].Trim());
-
-        currentScore += 1;
-        scoreLabel.Text = $"Score: {currentScore}";
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(1);
+        }
+        else
+        {
+            var scoreManager = GetNodeOrNull<ScoreManager>("/root/ScoreManager");
+            scoreManager?.AddScore(1);
+        }
 
         QueueFree();
     }

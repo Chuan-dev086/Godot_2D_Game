@@ -27,6 +27,7 @@ public partial class Player : CharacterBody2D
     private int _maxHealth = 3;
     private int _currentHealth;
     private bool _isInvincible = false;
+    private bool _isDead = false;
 
     // ==========================================
     // Weapon
@@ -51,6 +52,7 @@ public partial class Player : CharacterBody2D
     public override void _Ready()
     {
         GD.Print("Player _Ready() executed!");
+        AddToGroup("player");
 
         _weaponManager = GetNode<WeaponManager>("WeaponManager");
 
@@ -82,6 +84,9 @@ public partial class Player : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (_isDead)
+            return;
+
         Vector2 velocity = Vector2.Zero;
 
         if (Input.IsKeyPressed(Key.W))
@@ -102,12 +107,6 @@ public partial class Player : CharacterBody2D
         Velocity = velocity * _speed;
 
         MoveAndSlide();
-
-        // Follow player with camera
-        var cam = GetParent().GetNodeOrNull<Camera2D>("Camera2D");
-
-        if (cam != null)
-            cam.GlobalPosition = GlobalPosition;
     }
 
     // ==========================================
@@ -116,7 +115,7 @@ public partial class Player : CharacterBody2D
 
     public void TakeDamage()
     {
-        if (_isInvincible)
+        if (_isInvincible || _isDead)
             return;
 
         _currentHealth -= 1;
@@ -127,6 +126,7 @@ public partial class Player : CharacterBody2D
 
         if (_currentHealth <= 0)
         {
+            _isDead = true;
             NotifyGameManager();
         }
         else
@@ -152,15 +152,23 @@ public partial class Player : CharacterBody2D
     // Notify GameManager when player dies
     private void NotifyGameManager()
     {
-        var gameManager = GetTree().CurrentScene.GetNodeOrNull<GameManager>("GameManager");
-
-        if (gameManager != null)
+        if (GameManager.Instance != null)
         {
-            gameManager.GameOver();
+            GameManager.Instance.GameOver();
         }
         else
         {
-            GD.PushError("GameManager node was not found!");
+            var gameManager = GetNodeOrNull<GameManager>("/root/GameManager") 
+                ?? GetTree().CurrentScene?.GetNodeOrNull<GameManager>("GameManager");
+
+            if (gameManager != null)
+            {
+                gameManager.GameOver();
+            }
+            else
+            {
+                GD.PushError("GameManager was not found!");
+            }
         }
     }
 
@@ -179,6 +187,9 @@ public partial class Player : CharacterBody2D
 
     public override void _Input(InputEvent @event)
     {
+        if (_isDead)
+            return;
+
         // Toggle Aim Mode using Tab
         if (
             @event is InputEventKey keyEvent

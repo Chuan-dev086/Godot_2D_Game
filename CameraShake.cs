@@ -11,6 +11,7 @@ public partial class CameraShake : Camera2D
 
     public override void _Ready()
     {
+        AddToGroup("camera");
         _originalOffset = Offset;
 
         // 关键修改：即使游戏时间变慢（顿帧），相机也要一直更新！
@@ -27,6 +28,12 @@ public partial class CameraShake : Camera2D
 
     public override void _Process(double delta)
     {
+        var player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+        if (IsInstanceValid(player))
+        {
+            GlobalPosition = player.GlobalPosition;
+        }
+
         if (_shakeTimer > 0)
         {
             _shakeTimer -= (float)delta;

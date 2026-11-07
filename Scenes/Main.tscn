@@ -15,9 +15,6 @@ script = ExtResource("1_pbw6q")
 [node name="Player" parent="." unique_id=2109169498 instance=ExtResource("5_pbw6q")]
 position = Vector2(304, 300)
 
-[node name="Enemy" parent="." unique_id=1549132596 instance=ExtResource("2_onrkg")]
-position = Vector2(-351, -414)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=226382865]
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=2057678204]

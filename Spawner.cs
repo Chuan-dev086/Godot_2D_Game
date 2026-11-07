@@ -18,8 +18,8 @@ public partial class Spawner : Timer
             return;
 
         // 1. 找到玩家当前的位置
-        var player = GetTree().Root.GetNode<Node2D>("Node2D/Player");
-        if (player == null)
+        var player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+        if (!GodotObject.IsInstanceValid(player))
             return;
 
         var enemy = _enemyScene.Instantiate<Enemy>();
