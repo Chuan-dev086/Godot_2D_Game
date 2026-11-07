@@ -53,6 +53,7 @@ public partial class Player : CharacterBody2D
     {
         GD.Print("Player _Ready() executed!");
         AddToGroup("player");
+        GetNode<Area2D>("Area2D").AddToGroup("player_hurtbox");
 
         _weaponManager = GetNode<WeaponManager>("WeaponManager");
 
@@ -325,6 +326,7 @@ public partial class Player : CharacterBody2D
         bullet.GlobalPosition = GlobalPosition + direction * 35;
 
         bullet.Direction = direction;
+        bullet.Damage = _weaponManager.CurrentWeapon.Damage;
 
         GetParent().AddChild(bullet);
 
